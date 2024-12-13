@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Advanced YouTube Downloader</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="container">
+        <h1>YouTube Video Downloader</h1>
+        <button id="toggle-theme-btn">Dark Mode</button>
+        <form action="/download" method="post" id="download-form">
+            <div class="input-group">
+                <input 
+                    type="url" 
+                    name="video_url" 
+                    placeholder="Enter YouTube Video URL" 
+                    required 
+                    pattern="^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+"
+                >
+                <select name="quality" id="quality">
+                    <option value="best">Best Available</option>
+                    <option value="1080">1080p</option>
+                    <option value="720">720p</option>
+                    <option value="480">480p</option>
+                    <option value="360">360p</option>
+                </select>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="audio-only" name="audio_only">
+                    <label for="audio-only">Audio Only</label>
+                </div>
+                <button type="submit">Download</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        document.getElementById('download-form').addEventListener('submit', function(e) {
+            var urlInput = this.querySelector('input[name="video_url"]');
+            var url = urlInput.value.trim();
+            
+            // Enhanced URL validation
+            var youtubeRegex = /^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+/;
+            if (!youtubeRegex.test(url)) {
+                e.preventDefault();
+                alert('Please enter a valid YouTube URL');
+            }
+        });
+
+        const toggleThemeBtn = document.getElementById('toggle-theme-btn');
+        const body = document.body;
+        const container = document.querySelector('.container');
+        const h1 = document.querySelector('h1');
+
+        // Check localStorage for the saved theme preference
+        const currentTheme = localStorage.getItem('theme') || 'light';
+
+        // Apply the saved theme to body
+        if (currentTheme === 'dark') {
+            body.classList.add('dark-mode');
+            body.classList.remove('light-mode');
+            container.classList.add('dark-mode');
+            h1.classList.add('dark-mode');
+        } else {
+            body.classList.add('light-mode');
+            body.classList.remove('dark-mode');
+            container.classList.add('light-mode');
+            h1.classList.add('light-mode');
+        }
+
+        toggleThemeBtn.addEventListener('click', () => {
+            const isDarkMode = body.classList.contains('dark-mode');
+            if (isDarkMode) {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                container.classList.remove('dark-mode');
+                container.classList.add('light-mode');
+                h1.classList.remove('dark-mode');
+                h1.classList.add('light-mode');
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                container.classList.remove('light-mode');
+                container.classList.add('dark-mode');
+                h1.classList.remove('light-mode');
+                h1.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Download Video</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/download.css') }}">
+</head>
+<body>
+    <div class="container">
+        <button id="toggle-theme-btn">🌙Dark Mod</button>
+        <h1>{{ title }}</h1>
+        <img src="{{ thumbnail }}" alt="Video Thumbnail" class="thumbnail">
+
+        <form action="/download_format" method="post">
+            <input type="hidden" name="video_url" value="{{ video_url }}">
+            <h2>Select Download Format:</h2>
+            <div class="formats-list">
+                {% for fmt in formats %}
+                    <div class="format-item">
+                        <input 
+                            type="radio" 
+                            name="format_id" 
+                            value="{{ fmt.format_id }}" 
+                            id="format-{{ loop.index }}"
+                            required
+                        >
+                        <label for="format-{{ loop.index }}">
+                            {{ fmt.resolution }} ({{ fmt.ext }}) 
+                            <span class="size">
+                                - Size: {{ fmt.filesize if fmt.filesize != 'Unknown' and fmt.filesize != 'None' else 'Unknown size' }}
+                            </span>
+                        </label>
+                    </div>
+                {% endfor %}
+            </div>
+            <button type="submit">Download</button>
+        </form>
+
+        <a href="/" class="back-link">← Back to Home</a>
+    </div>
+    <script>
+        const toggleThemeBtn = document.getElementById('toggle-theme-btn');
+        const body = document.body;
+        const container = document.querySelector('.container');
+        const h1 = document.querySelector('h1');
+
+        // Check localStorage for the saved theme preference
+        const currentTheme = localStorage.getItem('theme') || 'light';
+
+        // Apply the saved theme to body
+        if (currentTheme === 'dark') {
+            body.classList.add('dark-mode');
+            body.classList.remove('light-mode');
+            container.classList.add('dark-mode');
+            h1.classList.add('dark-mode');
+            toggleThemeBtn.classList.add('dark-mode');
+        } else {
+            body.classList.add('light-mode');
+            body.classList.remove('dark-mode');
+            container.classList.add('light-mode');
+            h1.classList.add('light-mode');
+            toggleThemeBtn.classList.remove('dark-mode');
+        }
+
+        toggleThemeBtn.addEventListener('click', () => {
+            const isDarkMode = body.classList.contains('dark-mode');
+            if (isDarkMode) {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                container.classList.remove('dark-mode');
+                container.classList.add('light-mode');
+                h1.classList.remove('dark-mode');
+                h1.classList.add('light-mode');
+                toggleThemeBtn.classList.remove('dark-mode');
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                container.classList.remove('light-mode');
+                container.classList.add('dark-mode');
+                h1.classList.remove('light-mode');
+                h1.classList.add('dark-mode');
+                toggleThemeBtn.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body.light-mode {
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+body.dark-mode {
+    background-color: #0a0a0a;
+    color: #fff;
+}
+
+h1 {
+    font-size: 3rem;
+    text-shadow: 0 0 20px rgba(55, 0, 255, 0.8);
+    margin-bottom: 30px;
+}
+
+h1.light-mode {
+    color: #333;
+}
+
+h1.dark-mode {
+    color: #ffffff;
+}
+
+.container {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(94, 7, 255, 0.5);
+    width: 80%;
+    max-width: 600px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.container.dark-mode {
+    background-color: #333;
+    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.5);
+}
+
+button {
+    padding: 15px 30px;
+    background-color: #ff0000;
+    color: #0a0a0a;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.5rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+button.dark-mode {
+    background-color: #333;
+    color: #fff;
+}
+
+button.dark-mode:hover {
+    background-color: #555;
+}
+
+a {
+    display: inline-block;
+    margin-top: 20px;
+    color: #007BFF;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a.dark-mode {
+    color: #bbb;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    .container {
+        padding: 20px;
+    }
+}
+#toggle-theme-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+    background-color: #ff0000;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.3s ease;
+}
+
+#toggle-theme-btn:hover {
+    background-color: #ff3333;
+}
+
+#toggle-theme-btn.dark-mode {
+    background-color: #333;
+    color: #fff;
+}
+
+#toggle-theme-btn.dark-mode:hover {
+    background-color: #555;
+}
