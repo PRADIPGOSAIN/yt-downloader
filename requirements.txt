@@ -1,6 +1,4 @@
-flask==2.1.0
-ffmpeg-python==0.4.5
-validators==0.20.0
-python-dotenv==0.20.0
-Werkzeug==2.1.1
-requests==2.27.1 
+Flask==2.3.2
+Werkzeug==2.3.2
+yt-dlp==2023.10.07
+python-dotenv==1.0.0
